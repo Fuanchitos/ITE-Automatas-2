@@ -16,3 +16,31 @@ paso 1 = [2,1,3,4,5]
 paso 2 = [2,3,1,4,5]
 --------------------------------------------*/
 
+const pasos = [0,2,4,1,2];
+const camino = [1, 2, 3, 4, 5];
+
+function aplicarPasosAlCamino(pasos, camino) {
+    const n = camino.length;
+  
+    for (let i = 0; i < pasos.length; i++) {
+      const paso = pasos[i];
+  
+      // Validar que el paso sea positivo y no mayor que el camino
+      if (paso <= 0 || paso > n) {
+        console.log(`El paso ${i + 1} es inválido.`);
+        continue;
+      }
+  
+      // Realizar la rotación circular
+      for (let j = 0; j < paso; j++) {
+        const elemento = camino.shift(); // Extraer el primer elemento
+        camino.push(elemento); // Agregar el elemento al final
+      }
+  
+      // Mostrar el estado del camino
+      console.log(`paso ${i} = [${camino.join(', ')}]`);
+    }
+  }
+  
+  aplicarPasosAlCamino(pasos, camino);
+    
