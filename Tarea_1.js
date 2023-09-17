@@ -15,7 +15,7 @@ paso 0 = [1,2,3,4,5]
 paso 1 = [2,1,3,4,5]
 paso 2 = [2,3,1,4,5]
 --------------------------------------------*/
-const pasos = [2, 4, 1, 2];
+const pasos = [1,1,1,1,1,2,2,2,2,2];
 const camino = [1, 2, 3, 4, 5];
 
 function aplicarPasosAlCamino(pasos, camino) {
