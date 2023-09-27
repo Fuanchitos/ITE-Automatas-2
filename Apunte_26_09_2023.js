@@ -19,4 +19,4 @@ for(let i=0; i<arreglo.length;i++){
     diccionario[arreglo[i]] = data[i]
     
 }
-console.log("arreglo_diccionario : " + diccionario[2])
+console.log("Diccionario : " + diccionario[2])
