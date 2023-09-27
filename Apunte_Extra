@@ -1,0 +1,16 @@
+/*const opciones = {
+
+}
+
+var opcion_array = 4
+const array_opciones = {
+    0 : [0,1,2],
+    1 : [1,0,2],
+    2 : [2,1,0],
+    3 : saluda() + "gourld"
+}
+
+array_opcionesp[4] = "ITE"
+console.log(opciones["arreglo"][2])
+console.log(array_opciones[opcion_array])
+*/
