@@ -7,7 +7,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-const movimientos = 9
+const movimientos = 5
 let turno = 'X'
 
 // GANA X si en turno = es 'X', GANA 0 si en turno = es 'O'
