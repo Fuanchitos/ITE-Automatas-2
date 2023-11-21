@@ -1,0 +1,6 @@
+SELECT nombre, puesto FROM Personal
+WHERE nombre = 'Daniel'
+CREATE DEFINER = 'admin'@'localhost' PROCEDURE account_count()
+BEGIN
+SELECT 'Number of accounts:', COUNT(*) FROM mysql.user;
+END;
