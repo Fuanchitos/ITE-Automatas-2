@@ -8,7 +8,7 @@ const reglas_sintacticas = {
     "UPDATE": [201],
     "DELETE": [202],
     "INSERT": [203]
-}
+};
 
 const SELECT_1 = [200, 10, 10];
 const FROM = [115, 998];
@@ -22,7 +22,7 @@ function valida_select(posicion) {
     console.log("Posicion: " + posicion);
     console.log(posicion + " -> SELECT : " + SELECT_1);
 
-    for (var j = 1; j <= SELECT_1.length - 1; j++) {
+    for (let j = 1; j <= SELECT_1.length - 1; j++) {
         console.log("Validando : " + SELECT_1[j]);
         if (DATA[posicion + j] != SELECT_1[j]) {
             print_error(DATA[posicion + j]);
@@ -44,7 +44,7 @@ function valida_from(posicion) {
 function valida_insert_into(posicion) {
     console.log(posicion + " -> INSERT INTO : " + reglas_sintacticas.INSERT);
 
-    for (var j = 1; j <= reglas_sintacticas.INSERT.length - 1; j++) {
+    for (let j = 1; j <= reglas_sintacticas.INSERT.length - 1; j++) {
         console.log("Validando : " + reglas_sintacticas.INSERT[j]);
         if (DATA[posicion + j] != reglas_sintacticas.INSERT[j]) {
             print_error(DATA[posicion + j]);
@@ -55,9 +55,53 @@ function valida_insert_into(posicion) {
     return posicion + (j - 1);
 }
 
+function valida_update_set_where(posicion) {
+    console.log(posicion + " -> UPDATE users : " + reglas_sintacticas.UPDATE);
+
+    for (let j = 1; j <= reglas_sintacticas.UPDATE.length - 1; j++) {
+        console.log("Validando : " + reglas_sintacticas.UPDATE[j]);
+        if (DATA[posicion + j] != reglas_sintacticas.UPDATE[j]) {
+            print_error(DATA[posicion + j]);
+        }
+    }
+
+    console.log("j : " + j);
+    return valida_set(posicion + (j - 1)); // Llama a la función para validar SET
+}
+
+function valida_set(posicion) {
+    console.log(posicion + " -> SET : " + ["SET"]); // Podrías definir una regla específica para SET si es necesario
+
+    // Lógica para validar la cláusula SET
+
+    // Aquí solo se imprime información de diagnóstico, pero puedes implementar la lógica de validación específica
+
+    console.log("SET validado");
+
+    // Llama a la función para validar WHERE
+    return valida_where(posicion + 1); // Incrementa la posición antes de llamar a valida_where
+}
+
+function valida_where(posicion) {
+    console.log(posicion + " -> WHERE : " + ["WHERE"]); // Podrías definir una regla específica para WHERE si es necesario
+
+    // Lógica para validar la cláusula WHERE
+
+    // Aquí solo se imprime información de diagnóstico, pero puedes implementar la lógica de validación específica
+
+    console.log("WHERE validado");
+
+    // Retorna la posición actual después de validar WHERE
+    return posicion;
+}
+
+// Agrega la nueva consulta UPDATE al final del array DATA
+const NEW_UPDATE_QUERY = [201, 10, 115, 998, 10, 60, 201, 10, 201, 10, 18, 12];
+DATA.push(...NEW_UPDATE_QUERY);
+
 console.log("DATA: " + DATA);
 
-for (i = 0; i < DATA.length; i++) {
+for (let i = 0; i < DATA.length; i++) {
     if (DATA[i] == 200) {
         i = valida_select(i); // SELECT
         console.log("i : " + i);
@@ -66,6 +110,9 @@ for (i = 0; i < DATA.length; i++) {
         console.log("i : " + i);
     } else if (DATA[i] == 203) {
         i = valida_insert_into(i); // INSERT INTO
+        console.log("i : " + i);
+    } else if (DATA[i] == 201) {
+        i = valida_update_set_where(i); // UPDATE
         console.log("i : " + i);
     } else if (DATA[i] == 12 || (DATA[i] == 13 && DATA[i + 1] == 13)) {
         console.log("FIN");
