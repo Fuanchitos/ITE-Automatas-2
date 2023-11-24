@@ -29,6 +29,8 @@ function valida_select(posicion) {
     }
 
     console.log("j : " + j);
+    // Llamamos a la función print pasando el texto
+    print("SELECT encontrado en la posición " + posicion);
     return posicion + (j - 1);
 }
 
@@ -37,6 +39,8 @@ function valida_from(posicion) {
     posicion = posicion + 1;
     console.info("DATA from : " + DATA[posicion]);
     if (DATA[posicion] != 998) print_error(DATA[posicion]);
+    // Llamamos a la función print pasando el texto
+    print("FROM encontrado en la posición " + posicion);
     return posicion;
 }
 
