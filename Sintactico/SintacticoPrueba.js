@@ -11,8 +11,28 @@ const reglas_sintacticas = {
 const SELECT_1 = [200, 10, 10];
 const FROM = [115, 998]; 
 const DATA = [200, 10, 10, 115, 998, 12, 60, 201,10];// tokens contenido
-
-const WHERE = [60, 201, 10]; // Assuming 60 is the token for WHERE
+const WHERE = [60, 201, 10]; 
+const ORDER_BY = [203]; 
+const LIMIT = [204]; 
+const GROUP_BY = [205]; 
+const HAVING = [206]; 
+const JOIN = [207]; 
+const INNER_JOIN = [208]; 
+const LEFT_JOIN = [209]; 
+const RIGHT_JOIN = [210]; 
+const COUNT = [211]; 
+const SUM = [212]; 
+const AVG = [213];
+const MAX = [214]; 
+const MIN = [215]; 
+const AS = [216]; 
+const LIKE = [217]; 
+const IN = [218]; 
+const BETWEEN = [219]; 
+const IS_NULL = [220]; 
+const IS_NOT_NULL = [221]; 
+const ASC = [222]; 
+const DESC = [223]; 
 
 
 function print_error(token) {
