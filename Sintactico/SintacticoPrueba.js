@@ -74,22 +74,77 @@ function valida_where(posicion) {
     }
 
     console.log("j : " + j);
-    // Add logic to handle conditions within WHERE clause if needed
-
     return posicion + (j - 1);
 }
 
 function valida_distinct(posicion) {
-    // Add logic to handle DISTINCT clause if needed
     console.log("DISTINCT clause");
-    // Assuming 100 is the token for DISTINCT
     if (DATA[posicion + 1] === 100) {
         console.log("DISTINCT token found");
-        // Add logic here for handling DISTINCT
         posicion = posicion + 2; // Move the position past DISTINCT token
     }
 
     return posicion;
+}
+
+function valida_order_by(posicion) {
+    console.log(posicion + " -> ORDER BY : " + ORDER_BY);
+    return posicion + 1;
+}
+
+function valida_limit(posicion) {
+    console.log(posicion + " -> LIMIT : " + LIMIT);
+    return posicion + 1;
+}
+
+function valida_group_by(posicion) {
+    console.log(posicion + " -> GROUP BY : " + GROUP_BY);
+    return posicion + 1;
+}
+
+function valida_having(posicion) {
+    console.log(posicion + " -> HAVING : " + HAVING);
+    return posicion + 1;
+}
+
+function valida_join(posicion) {
+    console.log(posicion + " -> JOIN : " + JOIN);
+    return posicion + 1;
+}
+
+function valida_agregacion(posicion) {
+    console.log("Agregación encontrada");
+    return posicion + 1;
+}
+
+function valida_as(posicion) {
+    console.log(posicion + " -> AS : " + AS);
+    return posicion + 1;
+}
+
+function valida_like(posicion) {
+    console.log(posicion + " -> LIKE : " + LIKE);
+    return posicion + 1;
+}
+
+function valida_in(posicion) {
+    console.log(posicion + " -> IN : " + IN);
+    return posicion + 1;
+}
+
+function valida_between(posicion) {
+    console.log(posicion + " -> BETWEEN : " + BETWEEN);
+    return posicion + 1;
+}
+
+function valida_null(posicion, is_null) {
+    console.log(posicion + " -> " + (is_null ? "IS NULL" : "IS NOT NULL"));
+    return posicion + 1;
+}
+
+function valida_asc_desc(posicion) {
+    console.log(posicion + " -> ASC/DESC : " + (DATA[posicion] === ASC ? "ASC" : "DESC"));
+    return posicion + 1;
 }
 
 console.log("DATA: " + DATA);
@@ -98,10 +153,44 @@ for (i = 0; i < DATA.length; i++) {
     if (DATA[i] == 200) {
         i = valida_select(i); // SELECT
         console.log("i : " + i);
-
-        // Check for DISTINCT and WHERE after SELECT
         i = valida_distinct(i);
         i = valida_where(i);
+
+        while (DATA[i] === ORDER_BY || DATA[i] === LIMIT || DATA[i] === GROUP_BY || DATA[i] === HAVING || DATA[i] === JOIN) {
+            if (DATA[i] === ORDER_BY) {
+                i = valida_order_by(i);
+            } else if (DATA[i] === LIMIT) {
+                i = valida_limit(i);
+            } else if (DATA[i] === GROUP_BY) {
+                i = valida_group_by(i);
+            } else if (DATA[i] === HAVING) {
+                i = valida_having(i);
+            } else if (DATA[i] === JOIN) {
+                i = valida_join(i);
+            }
+        }
+
+        while (DATA[i] === COUNT || DATA[i] === SUM || DATA[i] === AVG || DATA[i] === MAX || DATA[i] === MIN) {
+            i = valida_agregacion(i);
+        }
+        while (
+            DATA[i] === AS || DATA[i] === LIKE || DATA[i] === IN || DATA[i] === BETWEEN ||
+            DATA[i] === IS_NULL || DATA[i] === IS_NOT_NULL || DATA[i] === ASC || DATA[i] === DESC
+        ) {
+            if (DATA[i] === AS) {
+                i = valida_as(i);
+            } else if (DATA[i] === LIKE) {
+                i = valida_like(i);
+            } else if (DATA[i] === IN) {
+                i = valida_in(i);
+            } else if (DATA[i] === BETWEEN) {
+                i = valida_between(i);
+            } else if (DATA[i] === IS_NULL || DATA[i] === IS_NOT_NULL) {
+                i = valida_null(i, DATA[i] === IS_NULL);
+            } else if (DATA[i] === ASC || DATA[i] === DESC) {
+                i = valida_asc_desc(i);
+            }
+        }
     } else if (DATA[i] == 115) {
         i = valida_from(i); // FROM
     } else if (DATA[i] == 12 || (DATA[i] == 13 && DATA[i + 1] == 13)) {
