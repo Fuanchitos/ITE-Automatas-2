@@ -6,11 +6,13 @@ function print(texto) {
 const reglas_sintacticas = {
     "SELECT": [200, 10, 10],
     "UPDATE": [201],
-    "DELETE": [202]
+    "DELETE": [202],
+    "INSERT": [203]
 }
 const SELECT_1 = [200, 10, 10];
 const FROM = [115, 998];
-const DATA = [200, 10, 10, 115, 998, 12, 60, 201,10];// tokens contenido
+//DATA LEYERA LOS TOKENS
+const DATA = [200, 10, 10, 115, 998, 12, 60, 201,10];
 
 const WHERE = [60, 201, 10]; const ORDER_BY = [203]; const LIMIT = [204]; const GROUP_BY = [205]; const HAVING = [206]; 
 const JOIN = [207]; const INNER_JOIN = [208]; const LEFT_JOIN = [209]; const RIGHT_JOIN = [210]; 
